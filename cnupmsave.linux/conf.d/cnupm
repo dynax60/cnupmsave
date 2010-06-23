@@ -1,0 +1,7 @@
+# Copyright 1999-2004 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+CNUPM_USER=cnupm
+CNUPM_HOME=/var/cnupm
+CNUPM_OPTS="-a 15 -ep -f inet -u ${CNUPM_USER}"
+CNUPM_IF="eth1"

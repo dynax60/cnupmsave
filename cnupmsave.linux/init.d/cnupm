@@ -1,0 +1,45 @@
+#!/sbin/runscript
+# Copyright 1999-2004 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+depend() {
+	need net
+	use dns logger
+}
+
+checkconfig() {
+	if [ -x /usr/bin/getent ]; then
+		if [ "`getent passwd ${CNUPM_USER} | cut -d: -f 6`" != "${CNUPM_HOME}" ] ; then
+			eerror "Home directory of cnupm needs to be ${CNUPM_HOME}"
+			eerror "Please run 'usermod -d ${CNUPM_HOME} cnupm'"
+			return 1
+		fi
+	fi
+
+	if [ "${CNUPM_IF}" = "" ]; then
+		eerror "You must define an network interface to capture (see CNUPM_IF)"
+		return 1
+	fi
+
+	/sbin/ifconfig ${CNUPM_IF} >/dev/null 2>&1
+	if [ $? -ne 0 ]; then
+		eerror "No such interface: $i"
+		return 1
+	fi
+
+	return 0
+}
+
+start() {
+	checkconfig || return $?
+
+	ebegin "Starting cnupm"
+	start-stop-daemon --start --exec /usr/local/sbin/cnupm -- ${CNUPM_OPTS} -i ${CNUPM_IF}
+	eend $? "Failed to start cnupm"
+}
+
+stop() {
+	ebegin "Stopping cnupm"
+	start-stop-daemon --stop --name cnupm --user ${CNUPM_USER}
+	eend $? "Failed to stop cnupm"
+}
