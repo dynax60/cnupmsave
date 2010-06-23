@@ -47,12 +47,12 @@ my $CNUPM_VERSION 	= 3;
 my $CNUPM_HDR_LEN 	= 16;
 my $CNUPM_REC_LEN 	= 48;
 
-my $DBNAME 			= 'mydatabase';
-my $DBHOST 			= '192.168.123.149';
-my $DBUSER 			= 'mylogin';
-my $DBPASS 			= 'mypasswd';
+my $DBNAME 		= 'mydatabase';
+my $DBHOST 		= '192.168.123.149';
+my $DBUSER 		= 'mylogin';
+my $DBPASS 		= 'mypasswd';
 my $DBSCHEME 		= 'public';
-my $TABLE 			= "$DBSCHEME.user_traf";
+my $TABLE 		= "$DBSCHEME.user_traf";
 my $TABLE_DETAIL	= "$DBSCHEME.user_traf_dtl";
 
 sub usage;
